@@ -1,41 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cliente</title>
-</head>
-<body>
-    <center>
-        <h1>Clientes Cadastrados</h1>
-        <table border="1">
-            <tr>
-                <th>Nome</th>
-                <th>Idade</th>
-                <th>Telefone</th>
-                <th>Endereço</th>
-                <th>Editar</th>
-                <th>Remover</th>
-            </tr>
-            {% if cliente %}
-                {% for clientes in cliente %}
+{% extends 'base.html' %}
+
+{% block title %}Cliente{% endblock %}
+
+{% block content %}
+
+    <div class="container mt-4">
+        <h2 class="mt-4">Clientes Cadastrados</h2>
+        <div class="dropdown-divider"></div>
+        <div class="center mt-4">
+            <table class="table table-hover">
+                <thead>
                     <tr>
-                        <td>{{clientes.nome}}</td>
-                        <td>{{clientes.idade}}</td>
-                        <td>{{clientes.telefone}}</td>
-                        <td>{{clientes.endereco}}</td>
-                        <td><a href="{% url 'editcliente' clientes.id %}">Editar</a></td>
-                        <td><a href="{% url 'deletcliente' clientes.id %}">Remover</a></td>
+                        <th>Nome</th>
+                        <th>Idade</th>
+                        <th>Telefone</th>
+                        <th>Endereço</th>
+                        <th>Editar</th>
+                        <th>Remover</th>
                     </tr>
-                {% endfor %}
-            {% else %}
-                <tr>
-                    <td>Não tem nenhum cliente!</td>
-                <th>
-            {% endif %}
-        </table>
-        <br>
-        <a href="{% url 'cadastrocliente'%}">Adicionar Cliente</a>
-    </center>
-</body>
-</html>
+                </thead>
+                {% if cliente %}
+                    {% for clientes in cliente %}
+                        <tbody>
+                            <tr>
+                                <td>{{clientes.nome}}</td>
+                                <td>{{clientes.idade}}</td>
+                                <td>{{clientes.telefone}}</td>
+                                <td>{{clientes.endereco}}</td>
+                                <td><a href="{% url 'editcliente' clientes.id %}"><button type="button" class="btn btn-color">Editar</button></a></td>
+                                <td><a href="{% url 'deletcliente' clientes.id %}"><button type="button" class="btn btn-color2">Remover</button></a></td>
+                            </tr>
+                        </tbody>
+                    {% endfor %}
+                {% else %}
+                    <tbody>
+                        <tr>
+                            <td>Não tem nenhum cliente!</td>
+                        <th>
+                    </tbody>
+                {% endif %}
+            </table>
+        </div>
+    </div>
+
+{% endblock %}

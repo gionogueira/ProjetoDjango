@@ -1,15 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cliente Cadastro</title>
-</head>
-<body>
-    <form method="POST">
-        {% csrf_token %}
-        {{form.as_p}}
-        <input type="submit">
-    </form>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}Cadastro Cliente{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h2>Cadastro do Cliente</h2>
+        <div class="dropdown-divider"></div>
+    </div>
+    <div class="container card mt-2">
+        <div class="row mt-4">
+            <div class="col">
+                <form method="POST">
+                    {% csrf_token %}
+
+                    {{form.management_form}}
+                
+                    {% for forms in form %}
+                        <div class="myform">
+                            {{forms|crispy}}
+                        </div>
+                    {% endfor %}
+                    <button class="btn btn-submit" type="submit">Enviar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {% block scripts %}
+
+        <script type="text/javascript">
+            $(function () {
+                $('.myform').formset({
+                    prefix: '{{ form.prefix }}',
+                    addText: '<button class="btn btn-color mt-2" onclick="myFunction()">Adicionar</button>',
+                    deleteText: '<button class="btn btn-color mb-2" onclick="myFunction()">Remover</button>',
+                });
+            })
+        </script>
+
+    {% endblock scripts %}
+    
+{% endblock %}
+
+

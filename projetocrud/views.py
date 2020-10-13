@@ -11,14 +11,13 @@ def cadastrocliente(request):
     
     if request.method == 'POST':
         form = clienteformset(request.POST)
-        instances = form.save(commit=False)
         
-        for instance in instances:
-            instance.save()
+        if form.is_valid():
+            form.save()
             return redirect('listcliente')
     
     form = clienteformset()
-
+    
     return render(request, 'cadastro.html', {'form':form})
 
 def editcliente(request, pk):
@@ -28,10 +27,9 @@ def editcliente(request, pk):
     if request.method == 'POST':
         form = clienteformset(request.POST)
 
-        instances = form.save(commit=False)
-        
-        for instance in instances:
-            instance.save()
+        if form.is_valid():
+            form.save()
+            return redirect('listcliente')
     
     form = clienteformset()
 
